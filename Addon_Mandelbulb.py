@@ -6,7 +6,9 @@
 # Control this number as for example 128 resolution gives for example around 4 500 000 vertices( in form of voxel cubes )
 # max_r is the parameter that wikipedia doesnt present. It is a cutoff parameter for determining length of calculated voxel position vector calculated x^2+y^2+z^2 will be compared to this value and abandoned if lower
 # Parameters are named according to wikipedia's naming scheme. wikipedia.org/wiki/Mandelbulb
-# by Gen0me github.com/63n0m3
+# Licence: MIT free use, distribute and profit with this copyright notice
+# by Gen0me https://github.com/63n0m3/Mandelbulb_object_blender_addon/
+# btc: bc1q2h9m4pzfdnnfu79hfnjlcnta0j4etjqr4n5gy0
 bl_info = {
     "name": "Mandelbulb 3D",
     "author": "Gen0me",
