@@ -198,37 +198,24 @@ def add_object(self, context):
     if self.del_internal == True:
         indices_internal = []       # this is a list for indices of internal voxels
         for i in range(0, verts_count):     # This loop iterates through every generated voxel and checks if it is internal voxel and deletes it if option is selected
-            count_near_voxels = 0
+            count_near_voxels_a = 0
+            count_near_voxels_b = 0
+            count_near_voxels_c = 0
             for j in range(0, verts_count):
-                # This is inacurrate version
-                #if (voxels[i][0] < voxels[j][0] - interval*0.9 and voxels[i][0] > voxels[j][0] - interval*1.1 ) or (voxels[i][0] > voxels[j][0] + interval*0.9 and voxels[i][0] < voxels[j][0] + interval*1.1):
-                #    if (voxels[i][1] < voxels[j][1] - interval*0.9 and voxels[i][1] > voxels[j][1] - interval*1.1 ) or (voxels[i][1] > voxels[j][1] + interval*0.9 and voxels[i][1] < voxels[j][1] + interval*1.1):
-                #        if (voxels[i][2] < voxels[j][2] - interval*0.9 and voxels[i][2] > voxels[j][2] - interval*1.1 ) or (voxels[i][2] > voxels[j][2] + interval*0.9 and voxels[i][2] < voxels[j][2] + interval*1.1):
-                #            count_near_voxels += 1
-                #            if count_near_voxels == 8:
-                #                indices_internal.append(i)
-                #                break
                 if (voxels[i][0] == voxels[j][0]):
                     if (voxels[i][1] == voxels[j][1]):
                         if (voxels[i][2] < voxels[j][2] - interval*0.9 and voxels[i][2] > voxels[j][2] - interval*1.1 ) or (voxels[i][2] > voxels[j][2] + interval*0.9 and voxels[i][2] < voxels[j][2] + interval*1.1):            
-                            count_near_voxels += 1
-                            if count_near_voxels == 2:
-                                count_near_voxels = 0
-                                for k in range(0, verts_count):
-                                    if (voxels[i][0] == voxels[k][0]):
-                                        if (voxels[i][2] == voxels[k][2]):
-                                            if (voxels[i][1] < voxels[k][1] - interval*0.9 and voxels[i][1] > voxels[k][1] - interval*1.1 ) or (voxels[i][1] > voxels[k][1] + interval*0.9 and voxels[i][1] < voxels[k][1] + interval*1.1):
-                                                count_near_voxels += 1
-                                                if count_near_voxels == 2:
-                                                    count_near_voxels = 0
-                                                    for l in range(0, verts_count):
-                                                        if (voxels[i][1] == voxels[l][1]):
-                                                            if (voxels[i][2] == voxels[l][2]):
-                                                                if (voxels[i][0] < voxels[l][0] - interval*0.9 and voxels[i][0] > voxels[l][0] - interval*1.1 ) or (voxels[i][0] > voxels[l][0] + interval*0.9 and voxels[i][0] < voxels[l][0] + interval*1.1):
-                                                                    count_near_voxels += 1
-                                                                    if count_near_voxels == 2:
-                                                                        indices_internal.append(i)
-                                                                        break
+                            count_near_voxels_a += 1
+                if (voxels[i][0] == voxels[j][0]):
+                    if (voxels[i][2] == voxels[j][2]):
+                        if (voxels[i][1] < voxels[j][1] - interval*0.9 and voxels[i][1] > voxels[j][1] - interval*1.1 ) or (voxels[i][1] > voxels[j][1] + interval*0.9 and voxels[i][1] < voxels[j][1] + interval*1.1):
+                            count_near_voxels_b += 1
+                if (voxels[i][1] == voxels[j][1]):
+                    if (voxels[i][2] == voxels[j][2]):
+                        if (voxels[i][0] < voxels[j][0] - interval*0.9 and voxels[i][0] > voxels[j][0] - interval*1.1 ) or (voxels[i][0] > voxels[j][0] + interval*0.9 and voxels[i][0] < voxels[j][0] + interval*1.1):
+                            count_near_voxels_c += 1
+            if count_near_voxels_a == 2 and count_near_voxels_b == 2 and count_near_voxels_c == 2:
+                indices_internal.append(i)
         for i in range(len(indices_internal)-1, -1, -1):    # voxels with calculated indices are substracted
             to_del = indices_internal[i]
             voxels.pop(to_del)
